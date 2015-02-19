@@ -6,8 +6,8 @@ var SongQueue = Songs.extend({
     this.on("add", this.onAdd);
     this.on("ended", this.onEnd);
     this.on("dequeue", this.onDequeue);
-
     this.on("upvote", this.upvote);
+    this.on("downvote", this.downvote);
 
 
     // this.on("downvote",)
@@ -55,6 +55,25 @@ var SongQueue = Songs.extend({
 
     var removedSong = this.remove(song);
     this.add(song, {at: index-1});
+
+  },
+
+  downvote: function(song){
+    if(this.models.length === 1){
+      return;
+    }
+
+    var index = this.indexOf(song);
+    if(index === 0) {
+      var removedSong = this.remove(song);
+      this.add(song, {at: index+1});
+      this.playFirst();
+    } else if (index === this.models.length-1){
+      return;
+    } else {
+      var removedSong = this.remove(song);
+      this.add(song, {at: index+1});
+    }
 
   }
 

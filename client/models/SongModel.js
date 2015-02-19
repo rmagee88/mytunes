@@ -32,12 +32,10 @@ var SongModel = Backbone.Model.extend({
 
   upvote: function(){
     this.trigger('upvote', this);
-
   },
 
   downvote: function(){
     this.trigger('downvote', this);
-
   }
 
 });
