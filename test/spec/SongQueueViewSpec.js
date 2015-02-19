@@ -1,5 +1,5 @@
 describe('SongQueueView', function() {
-  var view, fakeSongs;
+  var view, fakeSongs, model;
 
   beforeEach(function() {
     fakeSongs = new SongQueue([
@@ -14,16 +14,18 @@ describe('SongQueueView', function() {
         title:'test song 2'
       }
     ]);
+
+    model = fakeSongs.models[0];
   });
 
-  xit('creates SongQueueEntryViews for each queued song & renders them', function(){
+  it('creates SongQueueEntryViews for each queued song & renders them', function(){
     sinon.spy(SongQueueEntryView.prototype, 'render');
     view = new SongQueueView({collection: fakeSongs});
     view.render();
     expect(SongQueueEntryView.prototype.render).to.have.been.called;
   });
 
-  xit('renders when add or remove event fires from the song queue collection', function(){
+  it('renders when add or remove event fires from the song queue collection', function(){
     sinon.spy(SongQueueView.prototype, 'render');
     view = new SongQueueView({collection: fakeSongs});
     view.collection.add({
@@ -34,5 +36,15 @@ describe('SongQueueView', function() {
     view.collection.pop();
     expect(view.render).to.have.been.called;
   });
+
+  it('dequeues clicked songs', function(){
+    debugger;
+     sinon.spy(SongModel.prototype, 'dequeue');
+     view = new SongQueueView({collection: fakeSongs});
+     view.$el.children()[1].click();
+     expect(model.dequeue).to.have.been.called;
+
+     SongModel.prototype.dequeue.restore();
+   });
 
 });
