@@ -38,7 +38,6 @@ describe('SongQueueView', function() {
   });
 
   it('dequeues clicked songs', function(){
-    debugger;
      sinon.spy(SongModel.prototype, 'dequeue');
      view = new SongQueueView({collection: fakeSongs});
      view.$el.children()[1].click();

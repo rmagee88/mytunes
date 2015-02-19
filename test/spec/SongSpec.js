@@ -38,4 +38,12 @@ describe('SongModel', function() {
       expect(model.trigger).to.have.been.calledWith('ended', model);
     });
   });
+
+  describe('ended', function() {
+    it('increases playcount by 1', function() {
+      model.play();
+      model.ended();
+      expect(model.get('numPlays')).to.equal(1);
+    });
+  });
 });
