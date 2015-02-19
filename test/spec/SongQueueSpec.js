@@ -32,6 +32,7 @@ describe('SongQueue', function() {
       it('does nothing', function() {
         var songQueue = new SongQueue(songData1);
         songQueue.add(songData2);
+        debugger;
         expect(playSpy).to.have.not.been.called;
       });
     });

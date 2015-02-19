@@ -7,6 +7,8 @@ describe('SongModel', function() {
       url: '/test/testsong.mp3',
       title:'test song'
     });
+  debugger;
+
     sinon.spy(model, 'trigger');
   });
 
