@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+  </head>
   <body>
+  <div class="btn newPlaylist">Create New Playlist</div>
     <!-- Scripts may be placed anywhere on a page. But FYI, they block rendering of elements
      below them until after the scripts load-->
     <script src="bower_components/jquery/jquery.min.js"></script>
@@ -23,15 +27,35 @@
 
     <script>
       $(function(){
-        // set up model objects
-        var library = new Songs(songData);
-        var app = new AppModel({library: library});
+        var app, library;
+        // if we already stored app objects use them
+        // if (localStorage.getItem('app')) {
+          // app = JSON.parse(localStorage.getItem('app'));
+          // library = JSON.parse(localStorage.getItem('library'));
+        // } else {
+          // set up model objects
+          library = new Songs(songData);
+          app = new AppModel({library: library});
+        // }
 
         // build a view for the top level of the whole app
         var appView = new AppView({model: app});
-
         // put the view onto the screen
         $('body').append(appView.render());
+        // listener to store app when window closed
+
+        app.loadLocalStorage();
+
+        $( window ).unload(function() {
+          var songIds = [];
+          app.get('songQueue').add(new SongModel());
+          app.get('songQueue').forEach(function(song){
+            songIds.push(song.cid);
+          });
+          console.log(songIds);
+          window.localStorage.setItem('songIds', JSON.stringify(songIds));
+        });
+
       });
     </script>
   </body>

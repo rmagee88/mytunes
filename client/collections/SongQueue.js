@@ -2,7 +2,6 @@
 var SongQueue = Songs.extend({
 
   initialize: function(){
-    // this.models.on("add", console.log("check"));
     this.on("add", this.onAdd);
     this.on("ended", this.onEnd);
     this.on("dequeue", this.onDequeue);
@@ -10,7 +9,6 @@ var SongQueue = Songs.extend({
     this.on("downvote", this.downvote);
 
 
-    // this.on("downvote",)
   },
 
   playFirst: function(){
